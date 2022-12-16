@@ -1,0 +1,91 @@
+package SelniumPack;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class WebsiteProject {
+
+	public static void main(String[] args) throws InterruptedException {
+		System.setProperty("webdriver.chrome.driver","C:\\Users\\Lenovo\\Downloads\\chromedriver_win32\\chromedriver.exe"); 
+		WebDriver driver=new ChromeDriver();
+		driver.get("https://www.google.com/");
+		driver.manage().window().maximize();
+		 driver.findElement(By.name("q")).sendKeys("Amazon");
+		Thread.sleep(1000);
+		driver.navigate().to("https://www.amazon.in/");
+		driver.navigate().to("https://www.amazon.in/ap/signin?openid.pape.max_auth_age=900&openid.return_to=https%3A%2F%2Fwww.amazon.in%2Fgp%2Fyourstore%2Fhome%3Fpath%3D%252Fgp%252Fyourstore%252Fhome%26signIn%3D1%26useRedirectOnSuccess%3D1%26action%3Dsign-out%26ref_%3Dnav_AccountFlyout_signout&openid.assoc_handle=inflex&openid.mode=checkid_setup&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0");
+	   
+		WebElement message = driver.findElement(By.id("ap_email"));
+	   message.sendKeys("supriya.thakurbsc@gmail.com");
+	    driver.findElement(By.id("continue")).submit();
+	    
+	    Thread.sleep(1000);
+	    
+	    WebElement password = driver.findElement(By.id("ap_password"));
+	    password.sendKeys("Hindi@2026");
+	    driver.findElement(By.id("signInSubmit")).click();
+	    
+	    WebElement search = driver.findElement(By.xpath("//input[@id='twotabsearchtextbox']"));
+	    search.sendKeys("Notebook");
+	    driver.findElement(By.xpath("//header/div[@id='navbar']/div[@id='nav-belt']/div[2]/div[1]/form[1]/div[3]/div[1]")).click();
+	    
+	    String pageTitle = driver.getTitle();
+	    System.out.println(pageTitle);
+	   
+	    driver.navigate().refresh();
+	    Thread.sleep(1000);
+	    driver.navigate().back();
+	    Thread.sleep(1000);
+        driver.navigate().forward();
+	    //js.executeScript("scrollBy(0, 4500)"); 
+        //Thread.sleep(2000);
+	    
+        JavascriptExecutor js = (JavascriptExecutor)driver;  
+        WebElement notebook = driver.findElement(By.linkText("Classmate Soft Cover 6 Subject Spiral Binding Notebook, Single Line, 300 Pages"));
+        js.executeScript("arguments[0].scrollIntoView();", notebook);
+        notebook.click();
+    
+    
+	    //add to cart and visit to card
+		 driver.findElement(By.xpath("//a[@id='nav-cart']")).click();
+	    //driver.findElement(By.id("addToCart_feature_div")).click();
+	    //driver.get("https://www.amazon.in/Classmate-Premium-Subject-Notebook-Single/dp/B00LZLPYHW/ref=sr_1_8?keywords=Notebook&qid=1669029301&qu=eyJxc2MiOiI4LjIyIiwicXNhIjoiNy42MiIsInFzcCI6IjYuOTQifQ%3D%3D&sr=8-8&th=1");
+	    
+		 String pageTitle2 = driver.getTitle();
+		 System.out.println(pageTitle2);
+		 
+		 //dropdown to select the quantity of the item
+		 WebElement dropdown = driver.findElement(By.name("quantity"));
+		 Select testdropdown = new Select(dropdown);  
+		 testdropdown.selectByIndex(5);
+		 
+		 //Checkbox selected
+		 driver.findElement(By.id("sc-buy-box-gift-checkbox")).click();
+		 
+		 //proceed to buy
+		 driver.findElement(By.id("desktop-ptc-button-celWidget")).click();
+		 
+		 //add new adress
+		 driver.findElement(By.xpath("//a[@id='add-new-address-popover-link']")).click();
+		 
+		 //fill the form
+		 WebElement dropdown2 =driver.findElement(By.name("address-ui-widgets-countryCode"));
+		 Select testdropdown2 = new Select(dropdown2);  
+		 testdropdown2.selectByIndex(5);
+		 
+		
+		driver.findElement(By.id("address-ui-widgets-enterAddressFullName")).sendKeys("Parul");
+		driver.findElement(By.id("address-ui-widgets-enterAddressPhoneNumber")).sendKeys("923456677878");
+		driver.findElement(By.id("address-ui-widgets-DetectLocationButton-announce")).click();
+		 driver.findElement(By.id("address-ui-widgets-form-submit-button")).click();
+	}
+	
+	
+	
+	
+
+}
